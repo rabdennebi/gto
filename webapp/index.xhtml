@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+     <h:head>
+ 
+     </h:head>
+ 
+     <h:body> 
+		 <h2>JournalDev Tutorials</h2>
+		 <h:form id="mainForm" >
+			 <p:dataTable id="ExtAccountTable" var="car" value="#{dtBasicView.cars}">
+			    <f:facet name="header">
+			       	<p:commandLink id="createExtAccount" update=":mainForm:dlg2" ajax="true" actionListener="#{dtBasicView.createExtAccount}">
+			       	Ajouter
+				    </p:commandLink>
+			    </f:facet>
+			 
+			    <p:column headerText="Id">
+			        <h:outputText value="#{car.id}" />
+			    </p:column>
+			 
+			    <p:column headerText="Year">
+			        <h:outputText value="#{car.year}" />
+			    </p:column>
+			 
+			    <p:column headerText="Brand">
+			        <h:outputText value="#{car.brand}" />
+			    </p:column>
+			 
+			    <p:column headerText="Color">
+			        <h:outputText value="#{car.color}" />
+			    </p:column>
+			 
+			    <f:facet name="footer">
+			        In total there are #{fn:length(dtBasicView.cars)} cars.
+			    </f:facet>
+			</p:dataTable>
+			<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+			<p:dialog header="Basic Dialog" widgetVar="dlg2" id="dlg2" minHeight="40">
+			
+			    <h:panelGrid  id="idPanelPop">
+		            <p:outputLabel for="car" value="Grouping: " />
+			        <p:selectOneMenu id="car" value="#{dtBasicView.city}">
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItems value="#{dtBasicView.cities}" />
+			        </p:selectOneMenu>
+				    <f:facet name="footer">
+				    	<h:commandButton  actionListener="#{dtBasicView.validerExtAccount}" id="Valider" />
+		                <h:commandButton value="Yes"  styleClass="ui-confirmdialog-yes" id="validé" actionListener="#{dtBasicView.validerExtAccount}" />
+		           		<p:commandButton value="No"  styleClass="ui-confirmdialog-no" update="growl" onclick="PF('dlg2').hide();" />
+		            </f:facet>		    
+			    </h:panelGrid>    
+			</p:dialog>
+		</h:form>
+	</h:body>	
+</html>
